@@ -10,12 +10,17 @@
 
 ```shell
 $ kind create cluster --config cluster.yaml
+$ kind delete cluster
 ```
 
 ### install ingress-nginx
 
 ```shell
 $ kubectl apply -f ingress-nginx.yaml
+
+# production
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.1/deploy/static/provider/cloud/deploy.yaml
+$ kubectl get svc -n ingress-nginx
 ```
 
 ### install metric server
