@@ -50,3 +50,9 @@ Kubernetes 的 [官方文档](https://kubernetes.io/docs/concepts/storage/storag
 
 ![storage-reation](./storage-relation.webp)
 ![storage-pv-pvc-storageclass-provisioner](./storage-pv-pvc-storageclass-provisioner.webp)
+
+常见provisioner使用可以参考：
+
+[kubernetes-sigs/nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+[TencentCloud/kubernetes-csi-tencentcloud](https://github.com/TencentCloud/kubernetes-csi-tencentcloud)
+[rook](https://github.com/rook/rook)
