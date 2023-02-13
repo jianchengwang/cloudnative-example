@@ -37,7 +37,7 @@ systemctl enable prometheus
 systemctl start prometheus
 systemctl status prometheus
 
-# alert manager
+# alert manager 9093
 mkdir -p /opt/alertmanager
 wget https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-amd64.tar.gz
 tar xf alertmanager-0.25.0.linux-amd64.tar.gz
@@ -54,8 +54,8 @@ After=network.target
 [Service]
 Type=simple
 
-ExecStart=/usr/local/alertmanager/alertmanager
-WorkingDirectory=/usr/local/alertmanager
+ExecStart=/opt/alertmanager/alertmanager
+WorkingDirectory=/opt/alertmanager
 
 Restart=on-failure
 SuccessExitStatus=0
@@ -83,10 +83,11 @@ rm -rf node_exporter-1.5.0.linux-amd64
 rm -rf node_exporter-1.5.0.linux-amd64.tar.gz
 nohup /opt/node_exporter/node_exporter &> output.log &
 
-# grafana 3000
+# grafana 3000 admin:admin
 mkdir -p /opt/grafana
 wget https://dl.grafana.com/oss/release/grafana-9.3.6.linux-amd64.tar.gz
 tar xf grafana-9.3.6.linux-amd64.tar.gz
-cp -far grafana-9.3.6.linux-amd64/* /opt/grafana/
-rm -rf grafana-9.3.6.linux-amd64
+cp -far grafana-9.3.6/* /opt/grafana/
+rm -rf grafana-9.3.6
 rm -rf grafana-9.3.6.linux-amd64.tar.gz
+nohup /opt/grafana/bin/grafana-server &> output.log &
