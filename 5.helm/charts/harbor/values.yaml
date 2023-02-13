@@ -1,0 +1,55 @@
+expose:
+  type: ingress
+  tls:
+    enabled: true
+    certSource: secret
+    secret:
+      secretName: "harbor-secret-tls"
+      notarySecretName: "notary-secret-tls"
+  ingress:
+    hosts:
+      core: harbor.example.dev
+      notary: notary.example.dev
+    className: nginx
+    annotations:
+      kubernetes.io/tls-acme: "true"
+# database:
+#   type: external
+#   external:
+#     host: "192.168.0.1"
+#     port: "5432"
+#     username: "user"
+#     password: "password"
+#     coreDatabase: "registry"
+#     notaryServerDatabase: "notary_server"
+#     notarySignerDatabase: "notary_signer"
+# redis:
+#   type: external
+#   external:
+#     addr: "192.168.0.2:6379"
+#     password: ""
+# persistence:
+#   imageChartStorage:
+#     type: s3
+#     s3:
+#       region: us-west-1
+#       bucket: bucketname
+#       accesskey: AWS_ACCESS_KEY_ID
+#       secretkey: AWS_SECRET_ACCESS_KEY
+#       rootdirectory: /harbor
+  persistentVolumeClaim:
+    registry:
+      size: 20Gi
+    chartmuseum:
+      size: 10Gi
+    jobservice:
+      jobLog:
+        size: 10Gi
+      scanDataExports:
+        size: 10Gi
+    database:
+      size: 10Gi
+    redis:
+      size: 10Gi
+    trivy:
+      size: 10Gi

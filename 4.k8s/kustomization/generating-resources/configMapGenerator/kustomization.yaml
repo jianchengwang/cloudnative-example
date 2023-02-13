@@ -1,0 +1,12 @@
+resources:
+- deployment.yaml
+configMapGenerator:
+- name: example-configmap-1
+  files:
+  - application.properties
+- name: example-configmap-2
+  envs:
+  - .env
+- name: example-configmap-3
+  literals:
+  - FOO=Bar

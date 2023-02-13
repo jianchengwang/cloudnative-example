@@ -26,3 +26,6 @@ kubectl apply -f https://raw.githubusercontent.com/jianchengwang/todo-cloudnativ
 yum install git
 git config --global user.name "jianchengwang"
 git config --global user.email "jiancheng_wang@yahoo.com"
+
+# helm
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
