@@ -13,6 +13,7 @@ kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
 # install ingress-nginx, metrics
 kubectl apply -f https://raw.githubusercontent.com/jianchengwang/todo-cloudnative/main/1.setup/ingress-nginx.yaml
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 kubectl apply -f https://raw.githubusercontent.com/jianchengwang/todo-cloudnative/main/1.setup/metrics.yaml
 
 # install docker

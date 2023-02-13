@@ -20,6 +20,7 @@ sudo mv ./kind /usr/local/bin/kind
 wget https://raw.githubusercontent.com/jianchengwang/todo-cloudnative/main/1.setup/cluster.yaml
 kind create cluster --config cluster.yaml
 kubectl apply -f https://raw.githubusercontent.com/jianchengwang/todo-cloudnative/main/1.setup/ingress-nginx.yaml
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 kubectl apply -f https://raw.githubusercontent.com/jianchengwang/todo-cloudnative/main/1.setup/metrics.yaml
 
 # git

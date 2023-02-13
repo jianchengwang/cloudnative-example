@@ -29,5 +29,40 @@ Chart.yaml  templates   values.yaml
 
 Helm Release 实际上是一个“安装”阶段的概念，它指的是本次安装的唯一标识（名称）。我们知道 Helm Chart 实际上是一个应用安装包，只有在安装（实例化）它时才会生效。它可以在同一个集群中甚至是同一个命名空间下安装多次，所以我们就需要为每次安装都起一个唯一的名字，这就是 Helm Release Name。
 
+## 发布
 
+要将 Helm Chart 推送到 GitHub Package，首先我们需要创建一个具备推送权限的 Token，你可以在这个 [链接](https://github.com/settings/tokens/new) 创建，并勾选 write:packages 权限。
 
+```shell
+$ helm registry login -u jianchengwang https://ghcr.io
+```
+
+请注意，由于 GitHub Package 使用的是 OCI 标准的存储格式，如果你使用的 helm 版本小于 3.8.0，则需要在运行这条命令之前增加 HELM_EXPERIMENTAL_OCI=1 的环境变量启用实验性功能。
+
+然后，返回到示例应用的根目录下，执行 helm package 命令来打包 Helm Chart。
+
+```shell
+# 打包
+$ helm package ./
+# 推送到远端仓库
+$ helm push kubernetes-example-0.1.0.tgz oci://ghcr.io/jianchengwang/helm
+# 安装远端仓库的helm chart
+$ helm install my-kubernetes-example oci://ghcr.io/jianchengwang/helm/kubernetes-example --version 0.1.0 --namespace remote-helm-staging --create-namespace --set frontend.autoscaling.averageUtilization=60 --set backend.autoscaling.averageUtilization=60
+```
+
+## 常用命令
+
+```shell
+# 调试模板
+helm template ./ -f ./values-prod.yaml
+# 查看已安装chart版本
+helm list -A
+# 更新升级，Helm 会自动对比新老版本之间的 Manifest 差异，并执行升级。
+helm upgrade my-kubernetes-example ./ -n example
+# 历史版本
+helm history my-kuebrnetes-example -n example
+# 回滚
+$ helm rollback my-kubernetes-example 1 -n example
+# 卸载
+helm uninstall my-kubernetes-example -n example
+```
