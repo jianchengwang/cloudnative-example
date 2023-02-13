@@ -1,0 +1,17 @@
+groups:
+- name: node_exporter
+  rules:
+  - alert: HostDown
+    expr: up{job="node_exporter"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: Host down {{ $labels.instance }}
+  - alert: MemUtil
+    expr: 100 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 > 1
+    for: 1m
+    labels:
+      severity: warn
+    annotations:
+      summary: Mem usage larger than 1%, instance:{{ $labels.instance }}
