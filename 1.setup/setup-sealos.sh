@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # install sealos
-wget https://github.com/labring/sealos/releases/download/v4.1.4/sealos_4.1.4_linux_amd64.tar.gz \
-   && tar zxvf sealos_4.1.4_linux_amd64.tar.gz sealos && chmod +x sealos && mv sealos /usr/bin
-rm -rf ./sealos_4.1.4_linux_amd64.tar.gz
+wget https://github.com/labring/sealos/releases/download/v4.1.7/sealos_4.1.7_linux_amd64.tar.gz \
+   && tar zxvf sealos_4.1.7_linux_amd64.tar.gz sealos && chmod +x sealos && mv sealos /usr/bin
+rm -rf ./sealos_4.1.7_linux_amd64.tar.gz
 
 # install k8s single
 # sealos version must >= v4.1.0
@@ -22,6 +22,11 @@ chmod +x get-docker.sh
 sh get-docker.sh
 rm -rf ./get-docker.sh
 service docker start
+
+# install docker compose
+curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+docker-compose version
 
 # git
 yum install git
